@@ -1,23 +1,9 @@
 pipeline {
-    agent any
-    options {
-        skipStagesAfterUnstable()
-    }
+    agent { docker { image 'php:8.4.1-alpine3.20' } }
     stages {
-        stage('Build') {
+        stage('build') {
             steps {
-                sh 'make'
-            }
-        }
-        stage('Test'){
-            steps {
-                sh 'make check'
-                junit 'reports/**/*.xml'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'make publish'
+                sh 'php --version'
             }
         }
     }
